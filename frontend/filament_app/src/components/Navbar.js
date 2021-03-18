@@ -4,9 +4,13 @@ class Navbar extends Component {
 
     render() {
         return (
-            <div>
-                Navbar
-            </div>
+        <section class="hero">
+        <div class="hero-body">
+            <p class="title">
+            Filament
+            </p>
+        </div>
+        </section>
         );
     }
 }
