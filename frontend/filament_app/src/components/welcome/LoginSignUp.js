@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import SignInScreen from 'components/welcome/SignInScreen';
 
 class LoginSignUp extends Component {
 
     render() {
-        if (true) {
+        if (false) {
             return (
                 <section className="content is-medium welcome-page-container">
                     <div className="columns is-centered background_secondary">
@@ -23,23 +24,7 @@ class LoginSignUp extends Component {
             )
         } else {
             return (
-            <form className="box">
-                <div className="field">
-                    <label className="label">Email</label>
-                    <div className="control">
-                        <input className="input" type="email" placeholder="e.g. jen.doe@example.com"></input>
-                    </div>
-                </div>
-    
-                <div className="field">
-                    <label className="label">Password</label>
-                    <div className="control">
-                        <input className="input" type="password" placeholder="********"></input>
-                    </div>
-                </div>
-                <button className="button is-primary">Login</button>
-    
-            </form>
+                <SignInScreen />
             );
         }
     }

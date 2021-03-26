@@ -12,3 +12,12 @@
     width: 450;
     height: 900;
 }
+
+.background_ellipse {
+    background-color: #F2FDFC;
+    // width: 400px;
+    // height: 450px;
+    border-radius: 100% / 500%;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+}
