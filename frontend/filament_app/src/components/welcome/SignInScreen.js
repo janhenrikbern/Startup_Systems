@@ -60,6 +60,7 @@ class SignInScreen extends Component {
       <div>
         <h1 className="title">Filament</h1>
         <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
+        <p>Your email address is {firebase.auth().currentUser.email}.</p>
         <a onClick={() => firebase.auth().signOut()}>Sign-out</a>
       </div>
     );
