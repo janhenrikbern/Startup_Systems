@@ -10,7 +10,7 @@ class GettingStarted extends Component {
                         <div className="">
 
                         </div>
-                        <h4 className="title">Be more concious about your energy usage</h4>
+                        <h4 className="title">Be more conscious about your energy usage</h4>
                         <figure>
                             <img src="imgs/rafiki.png" alt="A woman and a man stading next to each other. They are collaborating on organizing their data."></img>
                         </figure>
