@@ -13,11 +13,6 @@ class Navbar extends Component {
                 </div>
             </div>
             <div className="level-right">
-                {/* <div className="level-item">
-                    <p class="title">
-                        Menu
-                    </p>
-                </div> */}
             <div class="navbar-end">
                 <div class="navbar-item has-dropdown is-active">
                     <a class="navbar-link">
