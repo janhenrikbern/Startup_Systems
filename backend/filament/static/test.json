@@ -1,0 +1,20 @@
+{
+    "fileID": 1,
+    "date": "2015-03-25", 
+    "period": 30,
+    "carbon": {
+        "units": "kg",
+        "usage": 10000.0
+    },
+    "offset": {
+        "units": "USD",
+        "price": 5.55,
+        "metadata": {
+            "location": {
+                "country": "USA",
+                "state": "PA"
+            },
+            "type": "windfarm"
+        }
+    }
+}

@@ -1,0 +1,89 @@
+POST /energy
+
+expected body: 
+{
+  datafile: [
+      {
+          file: file,
+          userID: Null #post sent pre login
+          type: 'csv', 
+          provider: 'ConEd'
+        }
+    ]
+}
+
+example responses:
+[
+    {
+        fileID: 122345345326,
+        userID: Null,
+        status: 'in-progress'
+    }
+]
+
+[
+    {
+        fileID: 122345345326,
+        userID: Null,
+        status: 'done'
+    }
+]
+
+GET energy/{fileID}
+
+expected response:
+[
+  {
+    parsed_data: {
+        units: {
+            electricity: 'kWh',
+            gas: 'm3'
+        },
+        totals: [
+            {date: '2015-03-25', period: '30', electricity: 1023.5, gas: 150.3},
+            {date: '2015-02-23', period: '30', electricity: 923.1, gas: 100.3},
+        ],
+        profile: {
+            monday: {
+                electricity: {
+                    # Usage value for every 15 min period starting 12 AM to 11:45 PM
+                    usage: [0.3, 0.5, 0.3, 0.3, 0.4, 0.5, ...]
+                    usage_total: 16.45 
+                },
+                gas: {...}
+            },
+            tuesday: {...},
+            wednesday: {...},
+            thursday: {...},
+            friday: {...},
+            saturday: {...},
+            sunday: {...},
+        }
+    },
+    userID: Null,
+    status: 'done'
+  }
+]
+
+GET /carbon/{fileID}/{date-string}
+
+expected response:
+[
+    {
+        fileID: 122345345326,
+        date: '2015-03-25', 
+        period: '30',
+        carbon: {
+            units: 'kg',
+            usage: '10000.0'
+        },
+        offset: {
+            units: 'USD',
+            price: 5.55,
+            metadata: {
+                location: 'PA, USA',
+                type: 'Windfarm'
+            }
+        }
+    }
+]
