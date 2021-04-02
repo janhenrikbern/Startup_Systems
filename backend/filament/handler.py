@@ -1,5 +1,16 @@
 import json
 import os
+from google.oauth2 import id_token
+from google.auth.transport import requests
+
+
+def verify_token(token):
+    request = requests.Request()
+    # token would come from the header
+    id_info = id_token.verify_firebase_token(token, request)
+
+    userid = id_info['sub']
+    print(userid)
 
 def get_test_data(id):
     filename = os.path.join('static', 'test.json')
@@ -11,12 +22,14 @@ def get_test_data(id):
 
 def hello(event, context):
     path = event["pathParameters"]["proxy"].split('/')
-    print(path)
+
     if event["path"] == "/whoami" and event["httpMethod"] == "GET":
         body = {
             "message": "jhb353"
         }
     elif path[0] == "energy" and event["httpMethod"] == "GET":
+        token = event["headers"]["Authorization"]
+        verify_token(token)
         if len(path) > 1:
             body = get_test_data(path[1])
         else:
