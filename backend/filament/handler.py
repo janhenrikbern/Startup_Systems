@@ -27,7 +27,7 @@ def hello(event, context):
         body = {
             "message": "jhb353"
         }
-    elif path[0] == "energy" and event["httpMethod"] == "GET":
+    elif path[0] == "carbon" and event["httpMethod"] == "GET":
         token = event["headers"]["Authorization"]
         verify_token(token)
         if len(path) > 1:

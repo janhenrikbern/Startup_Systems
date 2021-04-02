@@ -4,12 +4,12 @@ import firebase from 'firebase';
 
 class Card extends Component {
     state = {
-        energy: null
+        carbon: null
     }
 
 	async componentDidMount() {
         const idToken = await firebase.auth().currentUser?.getIdToken()
-		const response = await fetch('http://localhost:4000/dev/energy/1',{ 
+		const response = await fetch('http://localhost:4000/dev/carbon/1',{ 
                     headers: { 
                         'Authorization': idToken
                 }
@@ -17,32 +17,32 @@ class Card extends Component {
         if (response.status === 401) {
             return console.log('unauthorized')
           }
-		const energyData = await response.json()
-		this.setState({energy: energyData})
-		console.log(energyData)
+		const carbonData = await response.json()
+		this.setState({carbon: carbonData})
+		console.log(carbonData)
 	}
 
     render() {
-        if (this.state.energy) {
+        if (this.state.carbon) {
             return (
                 <div className="card">
                 <div className="card-content">
                     <p className="title">
-                    {this.state.energy.offset.price.toString() + " " + this.state.energy.offset.units}
+                    {this.state.carbon.offset.price.toString() + " " + this.state.carbon.offset.units}
                     </p>
                     <p className="subtitle">
                         <span>
-                            {"Offset type: " + this.state.energy.offset.metadata.type}
+                            {"Offset type: " + this.state.carbon.offset.metadata.type}
                         </span>
                     </p>
                     <p className="subtitle">
                         <span>
-                            {"Offset location: " + this.state.energy.offset.metadata.location.state + ", " + this.state.energy.offset.metadata.location.state}
+                            {"Offset location: " + this.state.carbon.offset.metadata.location.state + ", " + this.state.carbon.offset.metadata.location.country}
                         </span>
                     </p>
                     <p className="subtitle">
                         <span>
-                            {"Offset amount: " + this.state.energy.carbon.usage.toString() + " " + this.state.energy.carbon.units}
+                            {"Offset amount: " + this.state.carbon.carbon.usage.toString() + " " + this.state.carbon.carbon.units}
                         </span>
                     </p>
                 </div>
