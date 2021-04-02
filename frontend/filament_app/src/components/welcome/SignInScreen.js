@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
+import Card from 'components/content/Card';
 
 var firebaseConfig = {
   apiKey: "AIzaSyAConH4DHpaNkxZw67j-sy94LkV4ZV_24g",
@@ -58,10 +59,15 @@ class SignInScreen extends Component {
     }
     return (
       <div>
+        <div>
         <h1 className="title">Filament</h1>
         <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
         <p>Your email address is {firebase.auth().currentUser.email}.</p>
         <a onClick={() => firebase.auth().signOut()}>Sign-out</a>
+      </div>
+        <div>
+          <Card />
+        </div>
       </div>
     );
   }
