@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 
+const isLocalEnv = window.location.href.includes('localhost')
+let backendUrl = 'https://ulo5y72k4m.execute-api.us-east-1.amazonaws.com/dev'
+if (isLocalEnv) {
+  backendUrl = 'http://localhost:4000/dev'
+}
 
 class Card extends Component {
     state = {
@@ -9,7 +14,8 @@ class Card extends Component {
 
 	async componentDidMount() {
         const idToken = await firebase.auth().currentUser?.getIdToken()
-		const response = await fetch('http://localhost:4000/dev/carbon/1',{ 
+
+		const response = await fetch(backendUrl + '/carbon/1',{ 
                     headers: { 
                         'Authorization': idToken
                 }
@@ -28,21 +34,36 @@ class Card extends Component {
                 <div className="card">
                 <div className="card-content">
                     <p className="title">
-                    {this.state.carbon.offset.price.toString() + " " + this.state.carbon.offset.units}
+                    {this.state.carbon.cost.total.toString() + " " + this.state.carbon.cost.currency}
                     </p>
                     <p className="subtitle">
                         <span>
-                            {"Offset type: " + this.state.carbon.offset.metadata.type}
+                            {"Carbon cost: " + this.state.carbon.cost.offset.toString() + " " + this.state.carbon.cost.currency}
                         </span>
                     </p>
                     <p className="subtitle">
                         <span>
-                            {"Offset location: " + this.state.carbon.offset.metadata.location.state + ", " + this.state.carbon.offset.metadata.location.country}
+                            {"Transaction cost: " + this.state.carbon.cost.transaction.toString() + " " + this.state.carbon.cost.currency}
                         </span>
                     </p>
                     <p className="subtitle">
                         <span>
-                            {"Offset amount: " + this.state.carbon.carbon.usage.toString() + " " + this.state.carbon.carbon.units}
+                            {"Offset Amount: " + this.state.carbon.offset_amount + " kg"}
+                        </span>
+                    </p>
+                    <p className="subtitle">
+                        <span>
+                            {"Offset location: " + this.state.carbon.details.province + ", " + this.state.carbon.details.country }
+                        </span>
+                    </p>
+                    <p className="subtitle">
+                        <span>
+                            {"Offset Type: " + this.state.carbon.details.offset_type}
+                        </span>
+                    </p>
+                    <p className="subtitle">
+                        <span>
+                            <a href={this.state.carbon.url} target="_blank" rel="noopener noreferrer">More info</a>
                         </span>
                     </p>
                 </div>

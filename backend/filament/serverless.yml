@@ -59,15 +59,17 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
+  app:
+    handler: handler.app
     events:
       - http:
           path: /
           method: ANY
+          cors: true
       - http:
           path: /{proxy+}
           method: ANY
+          cors: true
 
 plugins:
   - serverless-offline
