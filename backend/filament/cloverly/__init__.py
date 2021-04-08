@@ -7,6 +7,30 @@ SECRETS = {
     "PUBLIC_KEY": "public_key:a285e33af7f4acfb"
 }
 
+""" List applicable matches
+curl https://api.cloverly.com/2021-04-beta/offsets \
+-H "Content-type: application/json" \
+-H "Authorization: Bearer private_key:acb5a14fc34ea2d0
+""""
+
+""" Get details for specific offset
+curl https://api.cloverly.com/2019-03-beta/offsets/:offset_slug \
+-H "Content-type: application/json" \
+-H "Authorization: Bearer public_key:47800ea0ee541b4c"
+"""
+
+""" List offsets of certain type
+curl https://api.cloverly.com/2019-03-beta/offset-types \
+-H "Content-type: application/json" \
+-H "Authorization: Bearer public_key:47800ea0ee541b4c"
+
+Find matches close to location and by type
+1. "offset_match": {"type": "solar", "location":{"postal_code":"94043","country":"US"}
+2. "offset_match": {"type": "solar", "location":{"latlng": [41.1609216,-76.6826642]}
+3. "offset_match": {"type": "biomass"}
+4. "offset_match": {"slug": "arcata-city-forest-barnum-tract-f07113"}
+"""
+
 """ Get estimate and fix price
 curl https://api.cloverly.com/2019-03-beta/estimates/carbon \
 -X POST \
