@@ -14,12 +14,12 @@ class Card extends Component {
 
 	async componentDidMount() {
         const idToken = await firebase.auth().currentUser?.getIdToken()
-
-		const response = await fetch(backendUrl + '/carbon/1',{ 
-                    headers: { 
-                        'Authorization': idToken
-                }
-            })
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': idToken },
+            body: JSON.stringify({ type: 'carbon', usage: 10, units: 'kg' })
+        };
+        const response = await fetch(backendUrl + "/carbon", requestOptions)
         if (response.status === 401) {
             return console.log('unauthorized')
           }
