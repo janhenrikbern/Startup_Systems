@@ -11,7 +11,7 @@ SECRETS = {
 curl https://api.cloverly.com/2021-04-beta/offsets \
 -H "Content-type: application/json" \
 -H "Authorization: Bearer private_key:acb5a14fc34ea2d0
-""""
+"""
 
 """ Get details for specific offset
 curl https://api.cloverly.com/2019-03-beta/offsets/:offset_slug \

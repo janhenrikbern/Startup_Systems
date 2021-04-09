@@ -1,58 +1,47 @@
 import json
-import os
-from google.oauth2 import id_token
-from google.auth.transport import requests
+import os, sys
 
 import cloverly
-
-headers = {
-  'Access-Control-Allow-Origin': '*'
-}
-
-
-def verify_token(token):
-    request = requests.Request()
-    # token would come from the header
-    id_info = id_token.verify_firebase_token(token, request)
-
-    userid = id_info['sub']
-    print(userid)
-
-def get_test_data(id):
-    filename = os.path.join('static', 'test.json')
-    with open(filename) as file:
-        data = json.load(file)
-
-    data["fileID"] = int(id)
-    return data
+from api_util import (
+    create_response, 
+    get_path_list,
+    verify_user
+)
 
 def app(event, context):
-    path = event["pathParameters"]["proxy"].split('/')
 
     if event["httpMethod"] == 'OPTIONS':
         return {"statusCode": 200, "headers": headers}
         
+    path = get_path_list(event)
 
-    if event["path"] == "/whoami" and event["httpMethod"] == "GET":
-        body = {
-            "message": "jhb353"
-        }
-    elif path[0] == "carbon" and event["httpMethod"] == "GET":
-        token = event["headers"]["Authorization"]
-        verify_token(token)
-        if len(path) > 1 and int(path[1]) > 0:
-            body = cloverly.get_estimate_carbon(path[1])
-        else:
-            body = get_test_data(-1)
+    if path[0] == "whoami" and event["httpMethod"] == "GET":
+        return create_response(200, body={"message": "jhb353"})
+
+    elif path[0] == "carbon":
+        userid = None
+        try:
+            userid = verify_user(event)
+        except:
+            print("!!! Encountered error during token verification !!!")
+            print(sys.exc_info()[0])
+            return create_response(401, body={"message": "Can't verify user."})
+            
+        if event["httpMethod"] == "GET":
+            if len(path) > 1 and int(path[1]) > 0:
+                res = cloverly.get_estimate_carbon(path[1])
+                return create_response(200, body=res)
+            else:
+                return create_response(400, body={"message": "No offset uuid provided"})
+        
+        if event["httpMethod"] == "POST":
+            body = json.loads(event["body"])
+            if body["type"] == "carbon":
+                carbon_usage = body["usage"]
+                carbon_units = body["units"]
+                res = cloverly.get_estimate_carbon(int(carbon_usage), carbon_units)
+                return create_response(200, body=res)
+            return create_response(200)
+    
     else:
-        body = {
-            "input": event
-        }
-
-    response = {
-        "headers": headers,
-        "statusCode": 200,
-        "body": json.dumps(body)
-    }
-
-    return response
+        return create_response(404)
