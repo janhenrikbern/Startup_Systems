@@ -8,16 +8,17 @@ if (isLocalEnv) {
 }
 
 class Card extends Component {
-    state = {
-        carbon: null
-    }
-
+    constructor(props) {
+        super(props);
+        this.state = {carbon: null, id: 1};
+        this.remount = this.componentDidMount
+      }
+    
 	async componentDidMount() {
         const idToken = await firebase.auth().currentUser?.getIdToken()
         const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization': idToken },
-            body: JSON.stringify({ type: 'carbon', usage: 10, units: 'kg' })
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json', 'Authorization': idToken }
         };
         const response = await fetch(backendUrl + "/carbon", requestOptions)
         if (response.status === 401) {
@@ -25,7 +26,6 @@ class Card extends Component {
           }
 		const carbonData = await response.json()
 		this.setState({carbon: carbonData})
-		console.log(carbonData)
 	}
 
     render() {
@@ -33,6 +33,7 @@ class Card extends Component {
             return (
                 <div className="card">
                 <div className="card-content">
+                    <a onClick={() => this.componentDidMount()}>Update Offset</a>
                     <p className="title">
                     {this.state.carbon.cost.total.toString() + " " + this.state.carbon.cost.currency}
                     </p>
