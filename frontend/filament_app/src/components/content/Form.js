@@ -35,7 +35,7 @@ class CarbonForm extends React.Component {
       };
       const response = await fetch(backendUrl + "/carbon/", requestOptions)
       alert('You submitted a new emission of ' + this.state.value.toString() + ' ' + this.state.units);
-      
+      this.setState({value: 0, units: 'kg'});
     }
   
     render() {
