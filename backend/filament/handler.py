@@ -7,6 +7,7 @@ from api_util import (
     get_path_list,
     verify_user
 )
+from data_models.users import User
 
 def app(event, context):
 
@@ -22,25 +23,26 @@ def app(event, context):
         userid = None
         try:
             userid = verify_user(event)
+            user = User(userid)
+            user.get_or_create()
         except:
             print("!!! Encountered error during token verification !!!")
             print(sys.exc_info()[0])
             return create_response(401, body={"message": "Can't verify user."})
-            
+        
+        print(user.emissions)
         if event["httpMethod"] == "GET":
-            if len(path) > 1 and int(path[1]) > 0:
-                res = cloverly.get_estimate_carbon(path[1])
-                return create_response(200, body=res)
-            else:
-                return create_response(400, body={"message": "No offset uuid provided"})
+            print(f"Received GET request for user {userid}")
+            res = cloverly.get_estimate_carbon(user.emissions)
+            return create_response(200, body=res)
         
         if event["httpMethod"] == "POST":
             body = json.loads(event["body"])
             if body["type"] == "carbon":
                 carbon_usage = body["usage"]
                 carbon_units = body["units"]
-                res = cloverly.get_estimate_carbon(int(carbon_usage), carbon_units)
-                return create_response(200, body=res)
+                user.new_emission(float(carbon_usage), carbon_units)
+                return create_response(200)
             return create_response(200)
     
     else:

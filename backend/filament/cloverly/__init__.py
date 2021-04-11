@@ -43,7 +43,7 @@ def get_estimate_carbon(amount, units="kg"):
     url = "https://api.cloverly.com/2019-03-beta/estimates/carbon"
     body = {
         "weight": {
-            "value": amount,
+            "value": int(amount) if amount > 0 else 1,
             "units": units
         }
     }

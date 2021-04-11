@@ -10,12 +10,19 @@ class Base:
 
     def get(self):
         kwargs = db_util.get_table_entry(self.table, self.id)
-        for k, v in kwargs.item():
-            self.__dict__[k] == v
+        if not kwargs:
+            return None
+        
+        for k, v in kwargs.items():
+            self.__dict__[k] = v
         return self
 
-    def update(self):
-        pass
+    def save(self, element):
+        """
+        Saves updates by update data table entry
+        """
+        print(element)
+        db_util.update_table_entry(self, element)
 
     def delete(self):
         pass
