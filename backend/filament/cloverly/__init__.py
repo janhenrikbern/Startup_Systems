@@ -1,16 +1,18 @@
 import requests
 import json
+import os
 
 
-SECRETS = {
-    "SANDBOX_KEY": "private_key:acb5a14fc34ea2d0",
-    "PUBLIC_KEY": "public_key:a285e33af7f4acfb"
-}
+def get_api_key():
+    is_production = os.getenv("IS_PRODUCTION", False)
+    ### TODO: Uncomment when production is enabled on cloverly
+    # return os.getenv("CLOVERY_PUBLIC_KEY") if is_production else os.getenv("CLOVERLY_SANDBOX_KEY")
+    return os.getenv("CLOVERLY_SANDBOX_KEY") if is_production else os.getenv("CLOVERLY_SANDBOX_KEY")
 
 """ List applicable matches
 curl https://api.cloverly.com/2021-04-beta/offsets \
 -H "Content-type: application/json" \
--H "Authorization: Bearer private_key:acb5a14fc34ea2d0
+-H "Authorization: Bearer private_key:47800ea0ee541b4c
 """
 
 """ Get details for specific offset
@@ -48,7 +50,7 @@ def get_estimate_carbon(amount, units="kg"):
         }
     }
     headers = {
-        "Authorization": "Bearer " + SECRETS["SANDBOX_KEY"],
+        "Authorization": "Bearer " + get_api_key(),
         "Content-type": "application/json"
     }
     res = requests.post(url, headers=headers, data=json.dumps(body))
@@ -79,7 +81,7 @@ def get_estimate_electricity(amount, units="wh"):
         }
     }
     res = requests.get(
-        "https://api.cloverly.com/2019-03-beta/estimates/carbon"
+        "https://api.cloverly.com/2019-03-beta/estimates/electricity"
     )
     return res
 
