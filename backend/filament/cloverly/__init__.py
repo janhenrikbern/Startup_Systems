@@ -4,10 +4,10 @@ import os
 
 
 def get_api_key():
-    is_production = os.getenv("IS_PRODUCTION", False)
+    is_production = os.environ.get("IS_PRODUCTION", False)
     ### TODO: Uncomment when production is enabled on cloverly
     # return os.getenv("CLOVERY_PUBLIC_KEY") if is_production else os.getenv("CLOVERLY_SANDBOX_KEY")
-    return os.getenv("CLOVERLY_SANDBOX_KEY") if is_production else os.getenv("CLOVERLY_SANDBOX_KEY")
+    return os.environ.get("CLOVERLY_SANDBOX_KEY") if is_production else os.environ.get("CLOVERLY_SANDBOX_KEY")
 
 """ List applicable matches
 curl https://api.cloverly.com/2021-04-beta/offsets \

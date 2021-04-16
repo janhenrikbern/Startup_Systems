@@ -23,14 +23,18 @@ def app(event, context):
         userid = None
         try:
             userid = verify_user(event)
-            user = User(userid)
-            user.get_or_create()
         except:
             print("!!! Encountered error during token verification !!!")
             print(sys.exc_info()[0])
             return create_response(401, body={"message": "Can't verify user."})
         
-        print(user.emissions)
+        try:
+            user = User(userid)
+            user.get_or_create()
+        except:
+            print(sys.exc_info()[0])
+            return create_response(500, body={"message": "Whoops. Internal Issue."})
+
         if event["httpMethod"] == "GET":
             print(f"Received GET request for user {userid}")
             res = cloverly.get_estimate_carbon(user.emissions)
