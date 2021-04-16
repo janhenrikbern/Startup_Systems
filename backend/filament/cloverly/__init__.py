@@ -7,7 +7,12 @@ def get_api_key():
     is_production = os.environ.get("IS_PRODUCTION", False)
     ### TODO: Uncomment when production is enabled on cloverly
     # return os.getenv("CLOVERY_PUBLIC_KEY") if is_production else os.getenv("CLOVERLY_SANDBOX_KEY")
-    return os.environ.get("CLOVERLY_SANDBOX_KEY") if is_production else os.environ.get("CLOVERLY_SANDBOX_KEY")
+    return (
+        os.environ.get("CLOVERLY_SANDBOX_KEY")
+        if is_production
+        else os.environ.get("CLOVERLY_SANDBOX_KEY")
+    )
+
 
 """ List applicable matches
 curl https://api.cloverly.com/2021-04-beta/offsets \
@@ -41,17 +46,13 @@ curl https://api.cloverly.com/2019-03-beta/estimates/carbon \
 -H "Authorization: Bearer public_key:47800ea0ee541b4c"
 """
 
+
 def get_estimate_carbon(amount, units="kg"):
     url = "https://api.cloverly.com/2019-03-beta/estimates/carbon"
-    body = {
-        "weight": {
-            "value": int(amount) if amount > 0 else 1,
-            "units": units
-        }
-    }
+    body = {"weight": {"value": int(amount) if amount > 0 else 1, "units": units}}
     headers = {
         "Authorization": "Bearer " + get_api_key(),
-        "Content-type": "application/json"
+        "Content-type": "application/json",
     }
     res = requests.post(url, headers=headers, data=json.dumps(body))
     data = json.loads(res.content)
@@ -60,7 +61,7 @@ def get_estimate_carbon(amount, units="kg"):
         "offset_amount": data["equivalent_carbon_in_kg"],
         "cost": data["cost"],
         "details": data["offset"],
-        "url": data["pretty_url"]
+        "url": data["pretty_url"],
     }
     return body
 
@@ -73,17 +74,12 @@ curl https://api.cloverly.com/2019-03-beta/purchases/electricity \
 -H "Authorization: Bearer public_key:47800ea0ee541b4c"
 """
 
+
 def get_estimate_electricity(amount, units="wh"):
-    body = {
-        "energy": {
-            "value": amount,
-            "units": units
-        }
-    }
-    res = requests.get(
-        "https://api.cloverly.com/2019-03-beta/estimates/electricity"
-    )
+    body = {"energy": {"value": amount, "units": units}}
+    res = requests.get("https://api.cloverly.com/2019-03-beta/estimates/electricity")
     return res
+
 
 """ Purchase estimate
 curl https://api.cloverly.com/2019-03-beta/purchases \

@@ -106,3 +106,4 @@ dist
 # Python
 **__pycache__
 **venv/
+**.vscode

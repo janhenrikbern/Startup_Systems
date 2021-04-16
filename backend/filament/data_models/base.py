@@ -1,5 +1,6 @@
 from data_models import db_util
 
+
 class Base:
     def __init__(self, table_name, id):
         self.table = table_name
@@ -12,7 +13,7 @@ class Base:
         kwargs = db_util.get_table_entry(self.table, self.id)
         if not kwargs:
             return None
-        
+
         for k, v in kwargs.items():
             self.__dict__[k] = v
         return self
