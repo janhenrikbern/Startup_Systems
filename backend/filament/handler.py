@@ -9,7 +9,7 @@ from data_models.users import User
 def app(event, context):
 
     if event["httpMethod"] == "OPTIONS":
-        return {"statusCode": 200, "headers": headers}
+        return create_response(200)
 
     path = get_path_list(event)
 
