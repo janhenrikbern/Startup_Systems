@@ -65,6 +65,7 @@ def get_estimate_carbon(amount, units="kg"):
             "url": data["pretty_url"],
         }
     except Exception as e:
+        print(get_api_key())
         print(data)
         print(e)
         body = {"message": "Whoops, Something went wrong."}
