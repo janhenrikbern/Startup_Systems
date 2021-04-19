@@ -8,9 +8,9 @@ def get_api_key():
     ### TODO: Uncomment when production is enabled on cloverly
     # return os.getenv("CLOVERY_PUBLIC_KEY") if is_production else os.getenv("CLOVERLY_SANDBOX_KEY")
     return (
-        os.environ.get("CLOVERLY_SANDBOX_KEY")
+        os.environ.get("CLOVERLY_PRIVAT_KEY")
         if is_production
-        else os.environ.get("CLOVERLY_SANDBOX_KEY")
+        else os.environ.get("CLOVERY_PUBLIC_KEY")
     )
 
 
