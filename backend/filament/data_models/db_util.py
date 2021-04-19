@@ -10,6 +10,7 @@ def print_error_and_proceed(fn):
             return fn(*args, **kwargs)
         except Exception as e:
             print(f"!!! Unexpected error: {e}")
+            raise e
 
     return wrapper_fn
 
