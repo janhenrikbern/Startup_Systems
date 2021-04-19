@@ -56,13 +56,18 @@ def get_estimate_carbon(amount, units="kg"):
     }
     res = requests.post(url, headers=headers, data=json.dumps(body))
     data = json.loads(res.content)
-    body = {
-        "name": data["offset"]["pretty_name"],
-        "offset_amount": data["equivalent_carbon_in_kg"],
-        "cost": data["cost"],
-        "details": data["offset"],
-        "url": data["pretty_url"],
-    }
+    try:
+        body = {
+            "name": data["offset"]["pretty_name"],
+            "offset_amount": data["equivalent_carbon_in_kg"],
+            "cost": data["cost"],
+            "details": data["offset"],
+            "url": data["pretty_url"],
+        }
+    except Exception as e:
+        print(data)
+        print(e)
+        body = {"message": "Whoops, Something went wrong."}
     return body
 
 

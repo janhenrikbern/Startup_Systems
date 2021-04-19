@@ -33,7 +33,7 @@ def app(event, context):
             return create_response(500, body={"message": "Whoops. Internal Issue."})
 
         if event["httpMethod"] == "GET":
-            print(f"Received GET request for user {userid}")
+            print(f"Received GET request for user {userid} for {user.emissions} carbon emissions.")
             res = cloverly.get_estimate_carbon(user.emissions)
             return create_response(200, body=res)
 
