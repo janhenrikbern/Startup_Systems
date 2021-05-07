@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
+import BuyForm from './BuyButton';
 
 const isLocalEnv = window.location.href.includes('localhost')
 let backendUrl = 'https://ulo5y72k4m.execute-api.us-east-1.amazonaws.com/dev'
@@ -39,19 +40,19 @@ class Card extends Component {
         !this.state.showBuyModal && this.componentDidMount()
     }
 
-    submitEmissions() {
+    buyOffsets() {
         return (
             <div>                
-                {this.props.emissionOptions}
+                <BuyForm money={this.state.carbon.cost.total} offset={this.state.carbon.cost.offset} transaction={this.state.carbon.cost.transaction} carbon={this.state.carbon.offset_amount}/>
                 <button className="button login-button secondary" onClick={() => (this.toggleBuyOffsetModal())}>Back</button>
             </div>
         );
     }
 
-    buyOffsets() {
+    submitEmissions() {
         return (
             <div>                
-                {this.props.buyOffsetsOptions}
+                {this.props.emissionOptions}
                 <button className="button login-button secondary" onClick={() => (this.toggleEmissionModal())}>Back</button>
             </div>
         );
@@ -60,10 +61,11 @@ class Card extends Component {
     cardContent() {
         return (
             <div className="card-content">
+                <button className="button no-button-style secondary" onClick={(e)=>(this.componentDidMount(e))}>Refresh</button>
                 <p className="title">
                 {this.state.carbon.cost.total.toString() + " " + this.state.carbon.cost.currency}
                 </p>
-                <p className="subtitle">
+                {/* <p className="subtitle">
                     <span>
                         {"Carbon cost: " + this.state.carbon.cost.offset.toString() + " " + this.state.carbon.cost.currency}
                     </span>
@@ -72,7 +74,7 @@ class Card extends Component {
                     <span>
                         {"Transaction cost: " + this.state.carbon.cost.transaction.toString() + " " + this.state.carbon.cost.currency}
                     </span>
-                </p>
+                </p> */}
                 <p className="subtitle">
                     <span>
                         {"Offset Amount: " + this.state.carbon.offset_amount + " kg"}
