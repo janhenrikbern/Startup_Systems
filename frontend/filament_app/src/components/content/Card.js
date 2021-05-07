@@ -42,8 +42,8 @@ class Card extends Component {
     submitEmissions() {
         return (
             <div>                
-                <button className="button login-button secondary" onClick={() => (this.toggleBuyOffsetModal())}>Back</button>
                 {this.props.emissionOptions}
+                <button className="button login-button secondary" onClick={() => (this.toggleBuyOffsetModal())}>Back</button>
             </div>
         );
     }
@@ -51,8 +51,8 @@ class Card extends Component {
     buyOffsets() {
         return (
             <div>                
-                <button className="button login-button secondary" onClick={() => (this.toggleEmissionModal())}>Back</button>
                 {this.props.buyOffsetsOptions}
+                <button className="button login-button secondary" onClick={() => (this.toggleEmissionModal())}>Back</button>
             </div>
         );
     }

@@ -1,5 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
+// import FileUpload from './FileUpload'
 
 const isLocalEnv = window.location.href.includes('localhost')
 let backendUrl = 'https://ulo5y72k4m.execute-api.us-east-1.amazonaws.com/dev'
@@ -40,17 +41,33 @@ class CarbonForm extends React.Component {
   
     render() {
       return (
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Submit new emission amount:
-            <input type="number" value={this.state.value} onChange={this.handleValueChange} />
-            <select value={this.state.units} onChange={this.handleUnitChange}>            
-              <option value="kg">kg</option>
-              <option value="lbs">lbs</option>
-            </select>
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
+        <div>
+          <p className="title">Submit new emission amount:</p>
+
+          {/* <div className="card is-rounded secondary">
+          <div className="card-content">
+            <FileUpload />
+          </div>
+          </div> */}
+
+          <div className="card is-rounded secondary">
+          <div className="card-content">
+            <form onSubmit={this.handleSubmit}>
+              <label>
+                Manual entry: 
+                <input type="number" value={this.state.value} onChange={this.handleValueChange} />
+                <select value={this.state.units} onChange={this.handleUnitChange}>            
+                  <option value="kg">kg</option>
+                  <option value="lbs">lbs</option>
+                  <option value="kwh">lbs</option>
+                  <option value="wh">lbs</option>
+                </select>
+              </label>
+              <input type="submit" value="Submit" />
+            </form>
+          </div>
+          </div>
+        </div>
       );
     }
 }

@@ -23,18 +23,18 @@ class Navbar extends Component {
         if (this.state.is_menu_active) {
             return (
                 <div className={"navbar-item has-dropdown is-active"}>
-                    <button className="navbar-link no-button-style" onClick={() => this.onMenuClick()}>
+                    <button className="button navbar-link no-button-style" onClick={() => this.onMenuClick()}>
                         Menu
                     </button>
                     <div className="navbar-dropdown is-right">
-                        <button className="navbar-item no-button-style">
+                        <button className="button navbar-item no-button-style">
                             Profile
                         </button>
-                        <button className="navbar-item no-button-style">
+                        <button className="button navbar-item no-button-style">
                             Projects
                         </button>
                         <hr className="navbar-divider"></hr>
-                        <button className="navbar-item no-button-style" onClick={() => this.props.firebase.auth().signOut()}>
+                        <button className="button navbar-item no-button-style" onClick={() => this.props.firebase.auth().signOut()}>
                             Sign-out
                         </button>
                     </div>
@@ -43,7 +43,7 @@ class Navbar extends Component {
         } else {
             return (
                 <div className={"navbar-item has-dropdown"}>
-                    <button className="navbar-link no-button-style" onClick={() => this.onMenuClick()}>
+                    <button className="button navbar-link no-button-style" onClick={() => this.onMenuClick()}>
                         Menu
                     </button>
                 </div>
