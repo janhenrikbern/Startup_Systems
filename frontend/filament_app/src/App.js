@@ -5,8 +5,8 @@ function App() {
   return (
     <div className="App">
          <Welcome />
-      <div className="footer">
-      </div>
+      {/* <div className="footer">
+      </div> */}
     </div>
   );
 }

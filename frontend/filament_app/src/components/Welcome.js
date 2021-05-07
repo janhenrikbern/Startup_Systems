@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import GettingStarted from 'components/welcome/GettingStarted';
 import LoginSignUp from 'components/welcome/LoginSignUp';
 import SignInScreen from './welcome/SignInScreen';
 
