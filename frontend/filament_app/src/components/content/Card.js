@@ -29,7 +29,7 @@ class Card extends Component {
 	}
 
     render() {
-        if (this.state.carbon) {
+        if (this.state.carbon && this.state.carbon.cost) {
             return (
                 <div className="card">
                 <div className="card-content">

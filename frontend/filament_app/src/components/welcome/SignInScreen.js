@@ -3,6 +3,7 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
 import Card from 'components/content/Card';
 import CarbonForm from 'components/content/Form';
+import MemberContent from 'components/Content';
 
 var firebaseConfig = {
   apiKey: "AIzaSyAConH4DHpaNkxZw67j-sy94LkV4ZV_24g",
@@ -53,24 +54,13 @@ class SignInScreen extends Component {
     if (!this.state.isSignedIn) {
       return (
         <div>
-          <button className="is-wide-button button is-medium is-primary" onClick={this.props.buttonFunction}>Back</button>
+          <button className="is-wide-button button login-button secondary" onClick={this.props.buttonFunction}>Back</button>
           <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
         </div>
       );
     }
     return (
-      <div>
-        <div>
-        <h1 className="title">Filament</h1>
-        <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
-        <p>Your email address is {firebase.auth().currentUser.email}.</p>
-        <a onClick={() => firebase.auth().signOut()}>Sign-out</a>
-        </div>
-        {/* <div> */}
-          <CarbonForm />
-          <Card />
-        {/* </div> */}
-      </div>
+      <MemberContent firebase={firebase}/>
     );
   }
 }

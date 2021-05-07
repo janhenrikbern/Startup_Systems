@@ -22,10 +22,10 @@ class LoginSignUp extends Component {
                         Save our planet.
                         </p>
                         <p>
-                        <button className="is-wide-button button is-medium is-primary" onClick={this.props.buttonFunction}>Login</button>
+                        <button className="is-wide-button button is-medium login-button primary" onClick={this.props.buttonFunction}>Login</button>
                         </p>
                         <p>
-                        <button className="is-wide-button button is-medium is-primary" onClick={this.props.buttonFunction}>Sign Up</button>
+                        <button className="is-wide-button button is-medium login-button secondary" onClick={this.props.buttonFunction}>Sign Up</button>
                         </p>
                     </div>
                 </div>

@@ -8,6 +8,26 @@
     margin: 5px;
 }
 
+.login-button {
+    /* Primary */
+    border-radius: 52px;
+
+    /* Register */
+    width: 249px;
+    height: 60px;
+}
+
+.primary {
+    background: #3DC4C0;
+    color: #FFFFFF;
+}
+
+.secondary {
+    /* Secondary */
+    background: #CBEDEC;
+    color: #101F1E;
+}
+
 .welcome-page-container {
     width: 450;
     height: 900;

@@ -21,19 +21,15 @@ class Welcome extends Component {
     render() {
         if (this.state.showLogin){
             return (
-                <div className="background-secondary">
                 <SignInScreen buttonFunction={this.loginClick}/>
-                </div>
             );
         } else {
             return (
-                <div className="background-secondary">
-                    <div className="columns">
-                        <div className="column">
-                            <LoginSignUp buttonFunction={this.loginClick} />
-                        </div>
-                    </div>
-                </div>
+                // <div className="columns">
+                //     <div className="column">
+                        <LoginSignUp buttonFunction={this.loginClick} />
+                //     </div>
+                // </div>
             );
         }
     }
