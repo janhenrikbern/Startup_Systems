@@ -22,33 +22,30 @@ class Navbar extends Component {
     dropdownMenu() {
         if (this.state.is_menu_active) {
             return (
-                <div className={"navbar-item has-dropdown"}>
-                    <a className="navbar-link" onClick={() => this.onMenuClick()}>
-                        Menu
-                    </a>
-                </div>
-            );
-        } else {
-            return (
                 <div className={"navbar-item has-dropdown is-active"}>
                     <a className="navbar-link" onClick={() => this.onMenuClick()}>
                         Menu
                     </a>
                     <div className="navbar-dropdown is-right">
                         <a className="navbar-item">
-                            Overview
+                            Profile
                         </a>
                         <a className="navbar-item">
-                            Elements
+                            Projects
                         </a>
+                        <hr className="navbar-divider"></hr>
                         <a className="navbar-item" onClick={() => this.props.firebase.auth().signOut()}>
                             Sign-out
                         </a>
-                        <hr className="navbar-divider"></hr>
-                        <div className="navbar-item">
-                            Version 0.9.1
-                        </div>
                     </div>
+                </div>
+            );
+        } else {
+            return (
+                <div className={"navbar-item has-dropdown"}>
+                    <a className="navbar-link" onClick={() => this.onMenuClick()}>
+                        Menu
+                    </a>
                 </div>
             );
         }
@@ -65,9 +62,9 @@ class Navbar extends Component {
                 </div>
             </div>
             <div className="level-right">
-            {/* <div className="navbar-end">
+            <div className="navbar-end">
                 {this.dropdownMenu()}
-            </div> */}
+            </div>
             </div>
         </nav>
         );
