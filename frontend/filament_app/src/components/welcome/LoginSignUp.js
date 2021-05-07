@@ -8,14 +8,14 @@ class LoginSignUp extends Component {
             <section className="content is-medium welcome-page-container">
                 <div className="columns is-centered">
                     <div className="column has-text-centered">
-                        <SvgGlobe height={300} width={400}/>
-                        <p className="title filament">
+                        <SvgGlobe height={300} width={300}/>
+                        <p className="filament">
                         Filament
                         </p>
                         <p>
                         Track your consumption.
                         </p>
-                        <p>
+                        <p className="plain">
                         Offset your emissions.
                         </p>
                         <p>

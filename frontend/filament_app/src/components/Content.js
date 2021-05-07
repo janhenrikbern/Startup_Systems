@@ -7,16 +7,21 @@ import CarbonForm from 'components/content/Form';
 
 class MemberContent extends Component {
 
+    emissionOptions() {
+        return (
+            <CarbonForm />
+        )
+    }
+
     render() {
         return (
             <div>
                 <Navbar firebase={this.props.firebase} />
-            <div>
-            <p>Welcome {this.props.firebase.auth().currentUser.displayName}! You are now signed-in!</p>
-            <p>Your email address is {this.props.firebase.auth().currentUser.email}.</p>
+            <div className="columns is-centered">
+                <div className="column has-text-centered content-column">
+                    <Card emissionOptions={this.emissionOptions()}/>
+                </div>
             </div>
-                <CarbonForm />
-                <Card />
             </div>
         );
     }

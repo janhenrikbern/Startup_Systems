@@ -10,9 +10,8 @@ if (isLocalEnv) {
 class Card extends Component {
     constructor(props) {
         super(props);
-        this.state = {carbon: null, id: 1};
-        this.remount = this.componentDidMount
-      }
+        this.state = {carbon: null, id: 1, showEmissionModal: false, showBuyModal: false, showCard: true};
+    }
     
 	async componentDidMount() {
         const idToken = await firebase.auth().currentUser?.getIdToken()
@@ -28,74 +27,124 @@ class Card extends Component {
 		this.setState({carbon: carbonData})
 	}
 
+    toggleEmissionModal(e) {
+        this.setState({showEmissionModal: !this.state.showEmissionModal})
+        this.setState({showCard: !this.state.showCard})
+        !this.state.showEmissionModal && this.componentDidMount()
+    }
+
+    toggleBuyOffsetModal(e) {
+        this.setState({showBuyModal: !this.state.showBuyModal})
+        this.setState({showCard: !this.state.showCard})
+        !this.state.showBuyModal && this.componentDidMount()
+    }
+
+    submitEmissions() {
+        return (
+            <div>                
+                <button className="button login-button secondary" onClick={() => (this.toggleBuyOffsetModal())}>Back</button>
+                {this.props.emissionOptions}
+            </div>
+        );
+    }
+
+    buyOffsets() {
+        return (
+            <div>                
+                <button className="button login-button secondary" onClick={() => (this.toggleEmissionModal())}>Back</button>
+                {this.props.buyOffsetsOptions}
+            </div>
+        );
+    }
+
+    cardContent() {
+        return (
+            <div className="card-content">
+                <p className="title">
+                {this.state.carbon.cost.total.toString() + " " + this.state.carbon.cost.currency}
+                </p>
+                <p className="subtitle">
+                    <span>
+                        {"Carbon cost: " + this.state.carbon.cost.offset.toString() + " " + this.state.carbon.cost.currency}
+                    </span>
+                </p>
+                <p className="subtitle">
+                    <span>
+                        {"Transaction cost: " + this.state.carbon.cost.transaction.toString() + " " + this.state.carbon.cost.currency}
+                    </span>
+                </p>
+                <p className="subtitle">
+                    <span>
+                        {"Offset Amount: " + this.state.carbon.offset_amount + " kg"}
+                    </span>
+                </p>
+                <p className="subtitle">
+                    <span>
+                        {"Offset location: " + this.state.carbon.details.province + ", " + this.state.carbon.details.country }
+                    </span>
+                </p>
+                <p className="subtitle">
+                    <span>
+                        {"Offset Type: " + this.state.carbon.details.offset_type}
+                    </span>
+                </p>
+                <p className="subtitle">
+                    <span>
+                        <a href={this.state.carbon.url} target="_blank" rel="noopener noreferrer">More info</a>
+                    </span>
+                </p>
+            </div>
+        );
+    }
+    
+    cardFooter() {
+        return(
+            <footer className="card-footer">
+            <p className="card-footer-item">
+            <span>
+                <button className="button is-medium login-button no-button-style secondary" onClick={(e)=>(this.toggleEmissionModal(e))}>Submit Emission Entry</button>
+            </span>
+            </p>
+            <p className="card-footer-item">
+            <span>
+                <button className="button is-medium login-button no-button-style primary" onClick={(e)=>(this.toggleBuyOffsetModal(e))}>Buy Offset</button>
+            </span>
+            </p>
+            </footer>
+        );
+    }
+
     render() {
-        if (this.state.carbon && this.state.carbon.cost) {
-            return (
-                <div className="card">
-                <div className="card-content">
-                    <a onClick={() => this.componentDidMount()}>Update Offset</a>
-                    <p className="title">
-                    {this.state.carbon.cost.total.toString() + " " + this.state.carbon.cost.currency}
-                    </p>
-                    <p className="subtitle">
-                        <span>
-                            {"Carbon cost: " + this.state.carbon.cost.offset.toString() + " " + this.state.carbon.cost.currency}
-                        </span>
-                    </p>
-                    <p className="subtitle">
-                        <span>
-                            {"Transaction cost: " + this.state.carbon.cost.transaction.toString() + " " + this.state.carbon.cost.currency}
-                        </span>
-                    </p>
-                    <p className="subtitle">
-                        <span>
-                            {"Offset Amount: " + this.state.carbon.offset_amount + " kg"}
-                        </span>
-                    </p>
-                    <p className="subtitle">
-                        <span>
-                            {"Offset location: " + this.state.carbon.details.province + ", " + this.state.carbon.details.country }
-                        </span>
-                    </p>
-                    <p className="subtitle">
-                        <span>
-                            {"Offset Type: " + this.state.carbon.details.offset_type}
-                        </span>
-                    </p>
-                    <p className="subtitle">
-                        <span>
-                            <a href={this.state.carbon.url} target="_blank" rel="noopener noreferrer">More info</a>
-                        </span>
-                    </p>
-                </div>
-                <footer className="card-footer">
-                    <p className="card-footer-item">
-                    <span>
-                        {// eslint-disable-next-line
-                        <a href="">Buy Offset</a>
-                        }
-                    </span>
-                    </p>
-                </footer>
-                </div>
-            );
+        if (!this.state.showCard) {
+            if (this.state.showBuyModal) {
+                return (
+                    this.buyOffsets()
+                );
+            } else if (this.state.showEmissionModal) {
+                return (
+                    this.submitEmissions()
+                );
+            }
         } else {
-            return (
-                <div className="card">
-                <div className="card-content">
-                    <p className="title">
-                    "Fetching data..."
-                    </p>
-                </div>
-                <footer className="card-footer">
-                    <p className="card-footer-item">
-                    <span>
-                        Buy Offset
-                    </span>
-                    </p>
-                </footer>
-                </div>
-            );
+            if (this.state.carbon && this.state.carbon.cost) {
+                return (
+                    <div className="card">
+                        {this.cardContent()}
+                        {this.cardFooter()}
+                    </div>
+
+                );
+            } else {
+                return (
+                    <div className="card">
+                    <div className="card-content">
+                        <p className="title">
+                        "Fetching data..."
+                        </p>
+                    </div>
+                    </div>
+                );
+            }
         }
     }
 }

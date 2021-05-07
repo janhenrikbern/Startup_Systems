@@ -25,11 +25,7 @@ class Welcome extends Component {
             );
         } else {
             return (
-                // <div className="columns">
-                //     <div className="column">
-                        <LoginSignUp buttonFunction={this.loginClick} />
-                //     </div>
-                // </div>
+                <LoginSignUp buttonFunction={this.loginClick} />
             );
         }
     }

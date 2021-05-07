@@ -7,13 +7,13 @@ class Navbar extends Component {
         this.remount = this.componentDidMount
     }
 
-    componentDidMount() {
-        this.setState(state => ({ is_menu_active: false}))
-      }
+    // componentDidMount() {
+    //     this.setState(state => ({ is_menu_active: false}))
+    //   }
 
-    componentWillUnmount() {
-        this.setState(state => ({ is_menu_active: false}))
-    }
+    // componentWillUnmount() {
+    //     this.setState(state => ({ is_menu_active: false}))
+    // }
 
     onMenuClick() {
         this.setState(state => ({ is_menu_active: !state.is_menu_active}))
@@ -23,29 +23,29 @@ class Navbar extends Component {
         if (this.state.is_menu_active) {
             return (
                 <div className={"navbar-item has-dropdown is-active"}>
-                    <a className="navbar-link" onClick={() => this.onMenuClick()}>
+                    <button className="navbar-link no-button-style" onClick={() => this.onMenuClick()}>
                         Menu
-                    </a>
+                    </button>
                     <div className="navbar-dropdown is-right">
-                        <a className="navbar-item">
+                        <button className="navbar-item no-button-style">
                             Profile
-                        </a>
-                        <a className="navbar-item">
+                        </button>
+                        <button className="navbar-item no-button-style">
                             Projects
-                        </a>
+                        </button>
                         <hr className="navbar-divider"></hr>
-                        <a className="navbar-item" onClick={() => this.props.firebase.auth().signOut()}>
+                        <button className="navbar-item no-button-style" onClick={() => this.props.firebase.auth().signOut()}>
                             Sign-out
-                        </a>
+                        </button>
                     </div>
                 </div>
             );
         } else {
             return (
                 <div className={"navbar-item has-dropdown"}>
-                    <a className="navbar-link" onClick={() => this.onMenuClick()}>
+                    <button className="navbar-link no-button-style" onClick={() => this.onMenuClick()}>
                         Menu
-                    </a>
+                    </button>
                 </div>
             );
         }

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
-import Card from 'components/content/Card';
-import CarbonForm from 'components/content/Form';
 import MemberContent from 'components/Content';
 
 var firebaseConfig = {

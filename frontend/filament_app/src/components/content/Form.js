@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import firebase from 'firebase';
 
 const isLocalEnv = window.location.href.includes('localhost')
@@ -33,7 +33,7 @@ class CarbonForm extends React.Component {
         headers: { 'Content-Type': 'application/json', 'Authorization': idToken },
         body: JSON.stringify({ type: 'carbon', usage: this.state.value, units: this.state.units })
       };
-      const response = await fetch(backendUrl + "/carbon/", requestOptions)
+      await fetch(backendUrl + "/carbon/", requestOptions)
       alert('You submitted a new emission of ' + this.state.value.toString() + ' ' + this.state.units);
       this.setState({value: 0, units: 'kg'});
     }
