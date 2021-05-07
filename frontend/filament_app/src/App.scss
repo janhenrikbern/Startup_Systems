@@ -15,9 +15,17 @@
 
 .background_ellipse {
     background-color: #F2FDFC;
-    // width: 400px;
-    // height: 450px;
     border-radius: 100% / 500%;
     border-top-left-radius: 100px;
     border-top-right-radius: 100px;
+}
+
+.filament {
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 53px;
+    line-height: 43px;
+    letter-spacing: -0.04em;
+    color: #3DC4C0;
 }
